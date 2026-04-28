@@ -407,7 +407,7 @@ function Contact() {
           </div>
 
           <div className="di-contact-right">
-            <a href="mailto:desa.baires@gmail.com" className="di-contact-link">
+            <a href="mailto:info@didigitalstudio.com" className="di-contact-link">
               <div className="di-contact-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -416,7 +416,7 @@ function Contact() {
               </div>
               <div>
                 <div className="di-contact-label">Email</div>
-                <div className="di-contact-value">desa.baires@gmail.com</div>
+                <div className="di-contact-value">info@didigitalstudio.com</div>
               </div>
               <svg className="di-contact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M7 17L17 7M17 7H7M17 7V17" />
