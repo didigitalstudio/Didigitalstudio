@@ -196,7 +196,6 @@ function Nav() {
           </a>
           <nav className="di-nav-links" aria-label="Principal">
             <a href="#servicios">Servicios</a>
-            <a href="#casos">Casos</a>
             <a href="#proceso">Proceso</a>
             <a href="#stack">Stack</a>
             <a href="#faq">FAQ</a>
@@ -220,7 +219,6 @@ function Nav() {
       <div className={`di-mobile-menu ${menuOpen ? "is-open" : ""}`}>
         <nav className="di-mobile-links" aria-label="Móvil">
           <a href="#servicios" onClick={closeMenu}>Servicios</a>
-          <a href="#casos" onClick={closeMenu}>Casos</a>
           <a href="#proceso" onClick={closeMenu}>Proceso</a>
           <a href="#stack" onClick={closeMenu}>Stack</a>
           <a href="#faq" onClick={closeMenu}>FAQ</a>
@@ -697,13 +695,13 @@ function Contact() {
                 <span className="di-mono di-channel-label">Email</span>
                 <span className="di-channel-value">info@didigitalstudio.com</span>
               </a>
-              <a href="https://wa.me/5493584248863?text=Hola%20Lucas%2C%20quiero%20consultar%20un%20proyecto" target="_blank" rel="noopener noreferrer" className="di-channel">
+              <a href="https://wa.me/5491169459990?text=Hola%20Lucas%2C%20quiero%20consultar%20un%20proyecto" target="_blank" rel="noopener noreferrer" className="di-channel">
                 <span className="di-mono di-channel-label">WhatsApp · Comercial · Lucas</span>
-                <span className="di-channel-value">+54 9 358 424 8863</span>
-              </a>
-              <a href="https://wa.me/5491169459990?text=Hola%20Agust%C3%ADn%2C%20quiero%20consultar%20algo%20t%C3%A9cnico" target="_blank" rel="noopener noreferrer" className="di-channel">
-                <span className="di-mono di-channel-label">WhatsApp · Técnico · Agustín</span>
                 <span className="di-channel-value">+54 9 11 6945 9990</span>
+              </a>
+              <a href="https://wa.me/5493584248863?text=Hola%20Agust%C3%ADn%2C%20quiero%20consultar%20algo%20t%C3%A9cnico" target="_blank" rel="noopener noreferrer" className="di-channel">
+                <span className="di-mono di-channel-label">WhatsApp · Técnico · Agustín</span>
+                <span className="di-channel-value">+54 9 358 424 8863</span>
               </a>
               <a href="https://instagram.com/di.digital.studio" target="_blank" rel="noopener noreferrer" className="di-channel">
                 <span className="di-mono di-channel-label">Instagram</span>
@@ -830,12 +828,9 @@ function LandingApp() {
       <Nav />
       <main id="main" tabIndex={-1}>
         <Hero />
-        <Clients />
         <Services />
-        <Cases />
         <Process />
         <Stack />
-        <Testimonials />
         <FAQ />
         <Contact />
       </main>

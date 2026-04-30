@@ -227,18 +227,6 @@ function renderPrerenderedHTML() {
             </div>
           </section>
 
-          <section id="casos" class="di-section">
-            <div class="di-container">
-              <div class="di-section-head">
-                <span class="di-eyebrow">// Casos</span>
-                <h2>Lo que construimos para clientes reales.</h2>
-                <p class="di-section-sub">Tres ejemplos del último ciclo. Más casos detallados bajo NDA — los compartimos en el primer call si te interesan.</p>
-              </div>
-              <div class="di-cases-grid">${cases}
-              </div>
-            </div>
-          </section>
-
           <section id="proceso" class="di-section di-section-alt">
             <div class="di-container">
               <div class="di-section-head">
@@ -295,11 +283,11 @@ function renderPrerenderedHTML() {
                   <a href="https://instagram.com/di.digital.studio" target="_blank" rel="noopener noreferrer" class="di-contact-link">
                     <div><div class="di-contact-label">Instagram</div><div class="di-contact-value">@di.digital.studio</div></div>
                   </a>
-                  <a href="https://wa.me/5493584248863" target="_blank" rel="noopener noreferrer" class="di-contact-link">
-                    <div><div class="di-contact-label">WhatsApp · Comercial (Lucas)</div><div class="di-contact-value">+54 9 358 424 8863</div></div>
-                  </a>
                   <a href="https://wa.me/5491169459990" target="_blank" rel="noopener noreferrer" class="di-contact-link">
-                    <div><div class="di-contact-label">WhatsApp · Técnico (Agustín)</div><div class="di-contact-value">+54 9 11 6945 9990</div></div>
+                    <div><div class="di-contact-label">WhatsApp · Comercial (Lucas)</div><div class="di-contact-value">+54 9 11 6945 9990</div></div>
+                  </a>
+                  <a href="https://wa.me/5493584248863" target="_blank" rel="noopener noreferrer" class="di-contact-link">
+                    <div><div class="di-contact-label">WhatsApp · Técnico (Agustín)</div><div class="di-contact-value">+54 9 358 424 8863</div></div>
                   </a>
                 </div>
               </div>
