@@ -8,7 +8,8 @@
 // Run: `npm run build`. Vercel lo corre vía vercel-build.
 
 import { build } from "esbuild";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -52,6 +53,19 @@ const main = async () => {
   writeFileSync(resolve(root, "web/landing.bundle.js"), bundle);
   console.log(`✓ web/landing.bundle.js (${(Buffer.byteLength(bundle, "utf8") / 1024).toFixed(1)} KB)`);
 
+  // Cache-busting: inyectamos el hash del contenido en el querystring de bundle/css.
+  // Vercel sirve /web/* con max-age=31536000 immutable, así que sin esto los browsers
+  // se quedan con la versión vieja indefinidamente.
+  const hash = (buf) => createHash("sha256").update(buf).digest("hex").slice(0, 8);
+  const jsHash = hash(bundle);
+  const cssPath = resolve(root, "web/landing.css");
+  const cssHash = existsSync(cssPath) ? hash(readFileSync(cssPath)) : jsHash;
+
+  const stampAssetUrls = (html) =>
+    html
+      .replace(/\/web\/landing\.bundle\.js(?:\?v=[^"'\s]*)?/g, `/web/landing.bundle.js?v=${jsHash}`)
+      .replace(/\/web\/landing\.css(?:\?v=[^"'\s]*)?/g, `/web/landing.css?v=${cssHash}`);
+
   // Pre-render del HTML estático
   const prerendered = renderPrerenderedHTML();
   const indexPath = resolve(root, "index.html");
@@ -69,8 +83,21 @@ const main = async () => {
       prerendered +
       "\n      " +
       indexHtml.slice(endIdx);
+    indexHtml = stampAssetUrls(indexHtml);
     writeFileSync(indexPath, indexHtml);
-    console.log(`✓ index.html prerender actualizado (${(prerendered.length / 1024).toFixed(1)} KB)`);
+    console.log(`✓ index.html prerender actualizado (${(prerendered.length / 1024).toFixed(1)} KB) — js?v=${jsHash} css?v=${cssHash}`);
+  }
+
+  // Resto de páginas que comparten el CSS (privacidad, términos…)
+  for (const file of ["privacidad.html", "terminos.html"]) {
+    const p = resolve(root, file);
+    if (!existsSync(p)) continue;
+    const original = readFileSync(p, "utf8");
+    const stamped = stampAssetUrls(original);
+    if (stamped !== original) {
+      writeFileSync(p, stamped);
+      console.log(`✓ ${file} actualizado con cache-bust`);
+    }
   }
 };
 
