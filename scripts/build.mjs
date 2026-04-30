@@ -314,7 +314,37 @@ function renderPrerenderedHTML() {
       </div>`;
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// IndexNow ping (Bing/Yandex/Naver/etc.) — solo en builds de producción de Vercel
+async function pingIndexNow() {
+  if (process.env.VERCEL_ENV !== "production") return;
+  const KEY = "7b5789ad2d23b3f24e8b72b574aa7e34";
+  const HOST = "www.didigitalstudio.com";
+  const urls = [
+    `https://${HOST}/`,
+    `https://${HOST}/privacidad`,
+    `https://${HOST}/terminos`,
+  ];
+  try {
+    const r = await fetch("https://api.indexnow.org/indexnow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        host: HOST,
+        key: KEY,
+        keyLocation: `https://${HOST}/${KEY}.txt`,
+        urlList: urls,
+      }),
+    });
+    console.log(`✓ IndexNow: ${r.status} ${r.statusText} (${urls.length} URLs)`);
+  } catch (err) {
+    // No bloqueamos el deploy si falla
+    console.warn("⚠ IndexNow ping falló:", err && err.message ? err.message : err);
+  }
+}
+
+main()
+  .then(pingIndexNow)
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
