@@ -84,8 +84,14 @@ export default async function handler(req, res) {
   const budgetLabel = BUDGET_LABELS[budget] || budget || "—";
 
   const subject = `Nuevo lead · ${name}${company ? " · " + company : ""}`;
+  const receivedAt = new Date().toLocaleString("es-AR", {
+    timeZone: "America/Argentina/Buenos_Aires",
+    day: "2-digit", month: "long", year: "numeric",
+    hour: "2-digit", minute: "2-digit",
+  });
+
   const text = [
-    `Nuevo mensaje desde didigitalstudio.com`,
+    `Nuevo lead desde didigitalstudio.com`,
     ``,
     `Nombre: ${name}`,
     `Empresa: ${company || "—"}`,
@@ -97,24 +103,157 @@ export default async function handler(req, res) {
     message,
     ``,
     `—`,
-    `Recibido: ${new Date().toISOString()}`,
+    `Recibido: ${receivedAt} (ART)`,
   ].join("\n");
 
-  const html = `
-    <div style="font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; max-width: 580px; margin: 0 auto; padding: 24px; color: #111;">
-      <h2 style="margin: 0 0 16px; font-size: 18px;">Nuevo lead desde didigitalstudio.com</h2>
-      <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse; font-size: 14px;">
-        <tr><td style="padding: 6px 0; color: #555;">Nombre</td><td style="padding: 6px 0;"><strong>${escapeHtml(name)}</strong></td></tr>
-        <tr><td style="padding: 6px 0; color: #555;">Empresa</td><td style="padding: 6px 0;">${escapeHtml(company) || "—"}</td></tr>
-        <tr><td style="padding: 6px 0; color: #555;">Email</td><td style="padding: 6px 0;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
-        <tr><td style="padding: 6px 0; color: #555;">Proyecto</td><td style="padding: 6px 0;">${escapeHtml(projectLabel)}</td></tr>
-        <tr><td style="padding: 6px 0; color: #555;">Inversión</td><td style="padding: 6px 0;">${escapeHtml(budgetLabel)}</td></tr>
+  const replySubject = encodeURIComponent(`Re: tu consulta a DI Digital Studio`);
+  const messageHtml = escapeHtml(message).replace(/\n/g, "<br />");
+
+  // HTML email — table-based para máxima compatibilidad (Gmail / Outlook / Apple Mail).
+  const html = `<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nuevo lead — DI Digital Studio</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f4f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f4f7;padding:32px 16px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#0d0d18;border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(7,7,11,0.18);">
+
+        <!-- Gradient bar -->
+        <tr>
+          <td style="height:4px;background:linear-gradient(90deg,#a78bfa 0%,#22d3ee 55%,#ec4899 100%);font-size:0;line-height:0;">&nbsp;</td>
+        </tr>
+
+        <!-- Header -->
+        <tr>
+          <td style="padding:32px 40px 16px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;font-weight:600;letter-spacing:-0.01em;color:#f5f5f7;">
+                  DI <span style="color:#a1a1aa;font-weight:400;">Digital Studio</span>
+                </td>
+                <td align="right" style="font-family:'JetBrains Mono','Fira Code',ui-monospace,monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#22d3ee;">
+                  // Nuevo lead
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Lead identity -->
+        <tr>
+          <td style="padding:8px 40px 28px;">
+            <p style="margin:0 0 6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:28px;font-weight:700;letter-spacing:-0.02em;line-height:1.15;color:#f5f5f7;">
+              ${escapeHtml(name)}
+            </p>
+            ${company ? `<p style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;color:#a1a1aa;">${escapeHtml(company)}</p>` : ""}
+          </td>
+        </tr>
+
+        <!-- Data card -->
+        <tr>
+          <td style="padding:0 40px 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;">
+              <tr>
+                <td style="padding:18px 22px;border-bottom:1px solid rgba(255,255,255,0.06);">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td width="120" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8c8c98;">Email</td>
+                      <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:#f5f5f7;">
+                        <a href="mailto:${escapeHtml(email)}" style="color:#67e8f9;text-decoration:none;">${escapeHtml(email)}</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:18px 22px;border-bottom:1px solid rgba(255,255,255,0.06);">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td width="120" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8c8c98;">Proyecto</td>
+                      <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:#f5f5f7;">${escapeHtml(projectLabel)}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:18px 22px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td width="120" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8c8c98;">Inversión</td>
+                      <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:#f5f5f7;">${escapeHtml(budgetLabel)}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Message -->
+        <tr>
+          <td style="padding:8px 40px 8px;">
+            <p style="margin:0 0 12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#22d3ee;">// Mensaje</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 40px 32px;">
+            <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.65;color:#e4e4e7;border-left:3px solid #a78bfa;padding:6px 0 6px 18px;">
+              ${messageHtml}
+            </div>
+          </td>
+        </tr>
+
+        <!-- CTA -->
+        <tr>
+          <td style="padding:0 40px 36px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="border-radius:10px;background:linear-gradient(135deg,#7c3aed 0%,#22d3ee 100%);">
+                  <a href="mailto:${escapeHtml(email)}?subject=${replySubject}" style="display:inline-block;padding:14px 26px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;font-weight:600;color:#07070b;text-decoration:none;border-radius:10px;">Responder a ${escapeHtml(name.split(" ")[0])} →</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding:24px 40px 32px;border-top:1px solid rgba(255,255,255,0.06);">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.05em;color:#71717a;">
+                  Recibido: ${escapeHtml(receivedAt)} · ART
+                </td>
+                <td align="right" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.05em;color:#71717a;">
+                  <a href="https://www.didigitalstudio.com" style="color:#71717a;text-decoration:none;">didigitalstudio.com</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
       </table>
-      <hr style="margin: 16px 0; border: none; border-top: 1px solid #eee;" />
-      <p style="margin: 0 0 8px; color: #555; font-size: 13px;">Mensaje:</p>
-      <div style="white-space: pre-wrap; font-size: 14px; line-height: 1.6;">${escapeHtml(message)}</div>
-    </div>
-  `;
+
+      <!-- Outer footer -->
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;margin-top:16px;">
+        <tr>
+          <td align="center" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;color:#a1a1aa;line-height:1.5;">
+            Este email fue generado automáticamente por el formulario de<br />
+            <a href="https://www.didigitalstudio.com" style="color:#7c3aed;text-decoration:none;">didigitalstudio.com</a> · Buenos Aires, Argentina
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>
+</body>
+</html>`;
 
   try {
     const r = await fetch("https://api.resend.com/emails", {
