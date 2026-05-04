@@ -141,6 +141,14 @@ const CASES = [
   { tag: "03", title: "Caso · Reservas de barbería", challenge: "Agenda en cuaderno + WhatsApp. Doble reserva, no-shows y plata perdida.", outcome: "Webapp mobile-first con magic-link auth, agenda en tiempo real y caja diaria.", metric: "2× reservas/semana" },
 ];
 
+const PROJECTS = [
+  { initials: "TB", name: "TurnosBarbería", desc: "SaaS de turnos para barberías. Reserva con magic link y panel admin con caja, agenda y equipo.", stack: ["Next.js", "Supabase", "Tailwind"], status: "Activo", url: "https://barberiaonline.vercel.app" },
+  { initials: "AT", name: "Atrio", desc: "Plataforma SaaS para inmobiliarias argentinas. Gestión de propiedades, clientes y operaciones.", stack: ["Next.js", "Supabase", "shadcn/ui"], status: "Activo", url: "https://atrio-omega.vercel.app" },
+  { initials: "IN", name: "Inventario", desc: "Gestión de inventario multi-tenant con fotos, precios, ubicación e import/export Excel. PWA.", stack: ["React", "Vite", "Supabase"], status: "Activo", url: "https://inventario-mu-one.vercel.app" },
+  { initials: "OG", name: "OdontoGestión", desc: "Webapp de gestión para consultorios odontológicos: pacientes, métricas y reportes.", stack: ["Next.js", "Supabase", "Recharts"], status: "Activo", url: "https://odontogestion.vercel.app" },
+  { initials: "TD", name: "TravelDesk", desc: "Plataforma para agencias de viajes con generación de PDFs, integraciones Google y bot de Telegram.", stack: ["Next.js", "Supabase", "Google APIs"], status: "Activo", url: "https://traveldesk-two.vercel.app" },
+];
+
 const esc = (s) =>
   String(s)
     .replace(/&/g, "&amp;")
@@ -188,6 +196,22 @@ function renderPrerenderedHTML() {
         </article>`,
   ).join("");
 
+  const projects = PROJECTS.map(
+    (p) => `
+        <a class="di-project-card" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(p.name)} — Ver proyecto (abre en pestaña nueva)">
+          <div class="di-project-head">
+            <div class="di-project-mono" aria-hidden="true"><span>${esc(p.initials)}</span></div>
+            <div class="di-project-title">
+              <h3>${esc(p.name)}</h3>
+              <span class="di-project-status"><span class="di-project-status-dot"></span>${esc(p.status)}</span>
+            </div>
+          </div>
+          <p class="di-project-desc">${esc(p.desc)}</p>
+          <div class="di-project-chips">${p.stack.map((t) => `<span class="di-chip">${esc(t)}</span>`).join("")}</div>
+          <span class="di-project-cta">Ver proyecto <span aria-hidden="true">→</span></span>
+        </a>`,
+  ).join("");
+
   const stack = STACK.map(
     (col) => `
         <div class="di-stack-col">
@@ -221,6 +245,7 @@ function renderPrerenderedHTML() {
             <a href="#servicios">Servicios</a>
             <a href="#proceso">Proceso</a>
             <a href="#stack">Stack</a>
+            <a href="#proyectos">Proyectos</a>
             <a href="#faq">FAQ</a>
             <a href="#contacto">Contacto</a>
           </nav>
@@ -275,6 +300,18 @@ function renderPrerenderedHTML() {
                 <p class="di-section-sub">Usamos lo que funciona. Elegimos cada herramienta según el problema, no según la moda.</p>
               </div>
               <div class="di-stack-grid">${stack}
+              </div>
+            </div>
+          </section>
+
+          <section id="proyectos" class="di-section">
+            <div class="di-container">
+              <div class="di-section-head">
+                <span class="di-eyebrow">// Proyectos</span>
+                <h2>Productos en producción.</h2>
+                <p class="di-section-sub">Una selección de plataformas activas que diseñamos y construimos. Tocá en cada una para ver su landing.</p>
+              </div>
+              <div class="di-projects-grid">${projects}
               </div>
             </div>
           </section>

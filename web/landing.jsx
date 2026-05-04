@@ -137,6 +137,49 @@ const TESTIMONIALS = [
   // TODO: reemplazar con testimoniales reales con nombre + cargo + empresa
 ];
 
+const PROJECTS = [
+  {
+    initials: "TB",
+    name: "TurnosBarbería",
+    desc: "SaaS de turnos para barberías. Reserva con magic link y panel admin con caja, agenda y equipo.",
+    stack: ["Next.js", "Supabase", "Tailwind"],
+    status: "Activo",
+    url: "https://barberiaonline.vercel.app",
+  },
+  {
+    initials: "AT",
+    name: "Atrio",
+    desc: "Plataforma SaaS para inmobiliarias argentinas. Gestión de propiedades, clientes y operaciones.",
+    stack: ["Next.js", "Supabase", "shadcn/ui"],
+    status: "Activo",
+    url: "https://atrio-omega.vercel.app",
+  },
+  {
+    initials: "IN",
+    name: "Inventario",
+    desc: "Gestión de inventario multi-tenant con fotos, precios, ubicación e import/export Excel. PWA.",
+    stack: ["React", "Vite", "Supabase"],
+    status: "Activo",
+    url: "https://inventario-mu-one.vercel.app",
+  },
+  {
+    initials: "OG",
+    name: "OdontoGestión",
+    desc: "Webapp de gestión para consultorios odontológicos: pacientes, métricas y reportes.",
+    stack: ["Next.js", "Supabase", "Recharts"],
+    status: "Activo",
+    url: "https://odontogestion.vercel.app",
+  },
+  {
+    initials: "TD",
+    name: "TravelDesk",
+    desc: "Plataforma para agencias de viajes con generación de PDFs, integraciones Google y bot de Telegram.",
+    stack: ["Next.js", "Supabase", "Google APIs"],
+    status: "Activo",
+    url: "https://traveldesk-two.vercel.app",
+  },
+];
+
 const PROJECT_TYPES = [
   { value: "software-a-medida", label: "Software a medida" },
   { value: "saas", label: "SaaS" },
@@ -224,6 +267,7 @@ function Nav() {
             <a href="#servicios">Servicios</a>
             <a href="#proceso">Proceso</a>
             <a href="#stack">Stack</a>
+            <a href="#proyectos">Proyectos</a>
             <a href="#faq">FAQ</a>
             <a href="#contacto">Contacto</a>
           </nav>
@@ -247,6 +291,7 @@ function Nav() {
           <a href="#servicios" onClick={closeMenu}>Servicios</a>
           <a href="#proceso" onClick={closeMenu}>Proceso</a>
           <a href="#stack" onClick={closeMenu}>Stack</a>
+          <a href="#proyectos" onClick={closeMenu}>Proyectos</a>
           <a href="#faq" onClick={closeMenu}>FAQ</a>
           <a href="#contacto" onClick={closeMenu}>Contacto</a>
         </nav>
@@ -420,6 +465,58 @@ function Stack() {
                 ))}
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Projects() {
+  return (
+    <section id="proyectos" className="di-section">
+      <div className="di-container">
+        <div className="di-section-head">
+          <span className="di-eyebrow">// Proyectos</span>
+          <h2>Productos en producción.</h2>
+          <p className="di-section-sub">
+            Una selección de plataformas activas que diseñamos y construimos. Tocá en
+            cada una para ver su landing.
+          </p>
+        </div>
+
+        <div className="di-projects-grid">
+          {PROJECTS.map((p) => (
+            <a
+              key={p.name}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="di-project-card"
+              aria-label={`${p.name} — Ver proyecto (abre en pestaña nueva)`}
+            >
+              <div className="di-project-head">
+                <div className="di-project-mono" aria-hidden="true">
+                  <span>{p.initials}</span>
+                </div>
+                <div className="di-project-title">
+                  <h3>{p.name}</h3>
+                  <span className="di-project-status">
+                    <span className="di-project-status-dot"></span>
+                    {p.status}
+                  </span>
+                </div>
+              </div>
+              <p className="di-project-desc">{p.desc}</p>
+              <div className="di-project-chips">
+                {p.stack.map((t) => (
+                  <span key={t} className="di-chip">{t}</span>
+                ))}
+              </div>
+              <span className="di-project-cta">
+                Ver proyecto <span aria-hidden="true">→</span>
+              </span>
+            </a>
           ))}
         </div>
       </div>
@@ -871,6 +968,7 @@ function LandingApp() {
         <Services />
         <Process />
         <Stack />
+        <Projects />
         <FAQ />
         <Contact />
       </main>
