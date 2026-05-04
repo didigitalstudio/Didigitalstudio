@@ -139,12 +139,12 @@ const TESTIMONIALS = [
 
 const PROJECTS = [
   {
-    initials: "TB",
-    name: "TurnosBarbería",
-    desc: "SaaS de turnos para barberías. Reserva con magic link y panel admin con caja, agenda y equipo.",
-    stack: ["Next.js", "Supabase", "Tailwind"],
+    initials: "TD",
+    name: "TravelDesk",
+    desc: "Plataforma para agencias de viajes con generación de PDFs, integraciones Google y bot de Telegram.",
+    stack: ["Next.js", "Supabase", "Google APIs"],
     status: "Activo",
-    url: "https://barberiaonline.vercel.app",
+    url: "https://traveldesk-two.vercel.app",
   },
   {
     initials: "AT",
@@ -155,14 +155,6 @@ const PROJECTS = [
     url: "https://atrio-omega.vercel.app",
   },
   {
-    initials: "IN",
-    name: "Inventario",
-    desc: "Gestión de inventario multi-tenant con fotos, precios, ubicación e import/export Excel. PWA.",
-    stack: ["React", "Vite", "Supabase"],
-    status: "Activo",
-    url: "https://inventario-mu-one.vercel.app",
-  },
-  {
     initials: "OG",
     name: "OdontoGestión",
     desc: "Webapp de gestión para consultorios odontológicos: pacientes, métricas y reportes.",
@@ -171,12 +163,20 @@ const PROJECTS = [
     url: "https://odontogestion.vercel.app",
   },
   {
-    initials: "TD",
-    name: "TravelDesk",
-    desc: "Plataforma para agencias de viajes con generación de PDFs, integraciones Google y bot de Telegram.",
-    stack: ["Next.js", "Supabase", "Google APIs"],
+    initials: "TB",
+    name: "TurnosBarbería",
+    desc: "SaaS de turnos para barberías. Reserva con magic link y panel admin con caja, agenda y equipo.",
+    stack: ["Next.js", "Supabase", "Tailwind"],
     status: "Activo",
-    url: "https://traveldesk-two.vercel.app",
+    url: "https://barberiaonline.vercel.app",
+  },
+  {
+    initials: "IN",
+    name: "Inventario",
+    desc: "Gestión de inventario multi-tenant con fotos, precios, ubicación e import/export Excel. PWA.",
+    stack: ["React", "Vite", "Supabase"],
+    status: "Activo",
+    url: "https://inventario-mu-one.vercel.app",
   },
 ];
 

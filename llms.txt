@@ -21,11 +21,11 @@ Trabajamos 100% remoto. Identidad legal en Buenos Aires, Argentina. Comunicació
 
 Plataformas activas que diseñamos y construimos:
 
-- **TurnosBarbería** — SaaS de turnos para barberías. Reserva con magic link y panel admin con caja, agenda y equipo. Stack: Next.js + Supabase + Tailwind. Landing: https://barberiaonline.vercel.app
-- **Atrio** — Plataforma SaaS para inmobiliarias argentinas. Gestión de propiedades, clientes y operaciones. Stack: Next.js + Supabase + shadcn/ui. Landing: https://atrio-omega.vercel.app
-- **Inventario** — Gestión de inventario multi-tenant con fotos, precios, ubicación e import/export Excel. PWA. Stack: React + Vite + Supabase. Landing: https://inventario-mu-one.vercel.app
-- **OdontoGestión** — Webapp de gestión para consultorios odontológicos: pacientes, métricas y reportes. Stack: Next.js + Supabase + Recharts. Landing: https://odontogestion.vercel.app
 - **TravelDesk** — Plataforma para agencias de viajes con generación de PDFs, integraciones Google y bot de Telegram. Stack: Next.js + Supabase + Google APIs. Landing: https://traveldesk-two.vercel.app
+- **Atrio** — Plataforma SaaS para inmobiliarias argentinas. Gestión de propiedades, clientes y operaciones. Stack: Next.js + Supabase + shadcn/ui. Landing: https://atrio-omega.vercel.app
+- **OdontoGestión** — Webapp de gestión para consultorios odontológicos: pacientes, métricas y reportes. Stack: Next.js + Supabase + Recharts. Landing: https://odontogestion.vercel.app
+- **TurnosBarbería** — SaaS de turnos para barberías. Reserva con magic link y panel admin con caja, agenda y equipo. Stack: Next.js + Supabase + Tailwind. Landing: https://barberiaonline.vercel.app
+- **Inventario** — Gestión de inventario multi-tenant con fotos, precios, ubicación e import/export Excel. PWA. Stack: React + Vite + Supabase. Landing: https://inventario-mu-one.vercel.app
 
 ## Stack
 
